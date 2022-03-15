@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\State;
+use App\Enums\TeamState;
 use JetBrains\PhpStorm\ArrayShape;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -15,19 +15,16 @@ class TeamFactory extends Factory
     /**
      * Define the model's default state.
      *
-     * @return array<string, mixed>
+     * @return array
      */
     #[ArrayShape([
-        'name'     => "string",
-        'state_id' => "int",
+        'name'  => "string",
+        'state' => "string",
     ])] public function definition(): array
     {
-        /** @var State $state */
-        $state = State::all()->random();
-
         return [
-            'name'     => $this->faker->unique()->company,
-            'state_id' => $state->id,
+            'name'  => $this->faker->unique()->company,
+            'state' => collect(TeamState::cases())->random()->value,
         ];
     }
 }

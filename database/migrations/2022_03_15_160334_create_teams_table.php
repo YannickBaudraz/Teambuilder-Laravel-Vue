@@ -1,12 +1,12 @@
 <?php
 
-use App\Models\State;
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Enums\TeamState;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
-return new class extends Migration
-{
+return new class extends Migration {
+
     /**
      * Run the migrations.
      *
@@ -17,7 +17,13 @@ return new class extends Migration
         Schema::create('teams', function (Blueprint $table) {
             $table->id();
             $table->string('name', 45)->unique();
-            $table->foreignIdFor(State::class)->constrained()->cascadeOnUpdate();
+            $table->enum('state', [
+                TeamState::WAIT_CHANG->value,
+                TeamState::WAIT_VAL->value,
+                TeamState::VALIDATED->value,
+                TeamState::COMMITTED->value,
+                TeamState::RECRUITING->value,
+            ])->default(TeamState::WAIT_CHANG->value);
             $table->timestamps();
         });
     }
