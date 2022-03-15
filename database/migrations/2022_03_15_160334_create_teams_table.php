@@ -17,13 +17,7 @@ return new class extends Migration {
         Schema::create('teams', function (Blueprint $table) {
             $table->id();
             $table->string('name', 45)->unique();
-            $table->enum('state', [
-                TeamState::WAIT_CHANG->value,
-                TeamState::WAIT_VAL->value,
-                TeamState::VALIDATED->value,
-                TeamState::COMMITTED->value,
-                TeamState::RECRUITING->value,
-            ])->default(TeamState::WAIT_CHANG->value);
+            $table->enum('state', $this->getStates())->default(TeamState::WAIT_CHANG->value);
             $table->timestamps();
         });
     }
@@ -36,5 +30,19 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::dropIfExists('teams');
+    }
+
+    /**
+     * @return array
+     */
+    private function getStates(): array
+    {
+        return [
+            TeamState::WAIT_CHANG->value,
+            TeamState::WAIT_VAL->value,
+            TeamState::VALIDATED->value,
+            TeamState::COMMITTED->value,
+            TeamState::RECRUITING->value,
+        ];
     }
 };

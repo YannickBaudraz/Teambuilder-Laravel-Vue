@@ -1,6 +1,7 @@
 <?php
 
 // @formatter:off
+
 /**
  * A helper file for your Eloquent Models
  * Copy the phpDocs from this file to the correct Model,
@@ -10,7 +11,61 @@
  */
 
 
-namespace App\Models{
+namespace App\Models
+{
+
+    use Eloquent;
+    use Database\Factories\MemberFactory;
+    use Illuminate\Database\Eloquent\Builder;
+
+    /**
+     * App\Models\Member
+     *
+     * @property int
+     *                   $id
+     * @property string
+     *                   $name
+     * @property string
+     *                   $password
+     * @property string
+     *                   $role
+     * @property string
+     *                   $status
+     * @property string|null
+     *                   $remember_token
+     * @property \Illuminate\Support\Carbon|null
+     *                   $created_at
+     * @property \Illuminate\Support\Carbon|null
+     *                   $updated_at
+     * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[]
+     *                $notifications
+     * @property-read int|null
+     *                        $notifications_count
+     * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Sanctum\PersonalAccessToken[]
+     *                        $tokens
+     * @property-read int|null
+     *                        $tokens_count
+     * @method static MemberFactory factory(...$parameters)
+     * @method static Builder|Member newModelQuery()
+     * @method static Builder|Member newQuery()
+     * @method static Builder|Member query()
+     * @method static Builder|Member whereCreatedAt($value)
+     * @method static Builder|Member whereId($value)
+     * @method static Builder|Member whereName($value)
+     * @method static Builder|Member wherePassword($value)
+     * @method static Builder|Member whereRememberToken($value)
+     * @method static Builder|Member whereRole($value)
+     * @method static Builder|Member whereStatus($value)
+     * @method static Builder|Member whereUpdatedAt($value)
+     */
+    class Member extends Eloquent
+    {
+
+    }
+}
+
+namespace App\Models
+{
 
     use Eloquent;
     use Illuminate\Database\Eloquent\Builder;
@@ -54,59 +109,6 @@ namespace App\Models
      * @method static Builder|Team whereUpdatedAt($value)
      */
     class Team extends Eloquent
-    {
-
-    }
-}
-
-namespace App\Models
-{
-
-    use Eloquent;
-    use Database\Factories\UserFactory;
-    use Illuminate\Database\Eloquent\Builder;
-
-    /**
-     * App\Models\User
-     *
-     * @property int
-     *                   $id
-     * @property string
-     *                   $name
-     * @property string
-     *                   $email
-     * @property \Illuminate\Support\Carbon|null
-     *                   $email_verified_at
-     * @property string
-     *                   $password
-     * @property string|null
-     *                   $remember_token
-     * @property \Illuminate\Support\Carbon|null
-     *                   $created_at
-     * @property \Illuminate\Support\Carbon|null
-     *                   $updated_at
-     * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[]
-     *                $notifications
-     * @property-read int|null
-     *                        $notifications_count
-     * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Sanctum\PersonalAccessToken[]
-     *                        $tokens
-     * @property-read int|null
-     *                        $tokens_count
-     * @method static UserFactory factory(...$parameters)
-     * @method static Builder|User newModelQuery()
-     * @method static Builder|User newQuery()
-     * @method static Builder|User query()
-     * @method static Builder|User whereCreatedAt($value)
-     * @method static Builder|User whereEmail($value)
-     * @method static Builder|User whereEmailVerifiedAt($value)
-     * @method static Builder|User whereId($value)
-     * @method static Builder|User whereName($value)
-     * @method static Builder|User wherePassword($value)
-     * @method static Builder|User whereRememberToken($value)
-     * @method static Builder|User whereUpdatedAt($value)
-     */
-    class User extends Eloquent
     {
 
     }

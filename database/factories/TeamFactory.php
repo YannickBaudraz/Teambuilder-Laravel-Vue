@@ -15,7 +15,7 @@ class TeamFactory extends Factory
     /**
      * Define the model's default state.
      *
-     * @return array
+     * @return array<string, string>
      */
     #[ArrayShape([
         'name'  => "string",
