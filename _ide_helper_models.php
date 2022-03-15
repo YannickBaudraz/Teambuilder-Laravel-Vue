@@ -16,7 +16,6 @@ namespace App\Models{
  *
  * @property int $id
  * @property string $slug
- * @method static \Database\Factories\StateFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|State newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|State newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|State query()
@@ -24,6 +23,28 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|State whereSlug($value)
  */
 	class State extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\Team
+ *
+ * @property int $id
+ * @property string $name
+ * @property int $state_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Database\Factories\TeamFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Team newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Team newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Team query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Team whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Team whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Team whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Team whereStateId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Team whereUpdatedAt($value)
+ */
+	class Team extends \Eloquent {}
 }
 
 namespace App\Models{
