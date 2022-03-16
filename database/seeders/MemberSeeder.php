@@ -15,6 +15,6 @@ class MemberSeeder extends Seeder
      */
     public function run(): void
     {
-        Member::factory(100)->create();
+        Member::factory(80)->create();
     }
 }

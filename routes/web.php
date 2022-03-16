@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\TeamController;
+use App\Http\Controllers\MemberTeamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +26,8 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/logout', 'destroy')->name('logout');
 });
 
-Route::resource('teams', TeamController::class);
+Route::resource('members.teams', MemberTeamController::class)->only(['index']);
 
-
+Route::middleware(['auth'])->group(function () {
+    Route::get('/members/{member}/teams', [MemberTeamController::class, 'index'])->name('members.teams.index');
+});
