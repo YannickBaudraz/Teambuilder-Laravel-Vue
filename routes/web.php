@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TeamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::redirect('/', '/home');
+Route::get('/home', fn() => view('home'))->name('home');
+
+Route::controller(AuthController::class)->group(function () {
+    Route::middleware('guest')->group(function () {
+        Route::get('/login', 'create')->name('login-form');
+        Route::post('/login', 'store')->name('login');
+    });
+    Route::post('/logout', 'destroy')->name('logout');
 });
+
+Route::resource('teams', TeamController::class);
+
+
