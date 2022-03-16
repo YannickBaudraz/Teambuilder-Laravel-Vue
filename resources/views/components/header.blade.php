@@ -9,7 +9,7 @@
                     <a href="{{ route('members.teams.index', Auth::user()) }}">My teams</a>
                 </li>
                 <li>
-                    <a href="#">Members</a>
+                    <a href="{{ route('members.index') }}">Members</a>
                 </li>
                 <li>
                     <a href="#">Moderators</a>

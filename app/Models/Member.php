@@ -52,4 +52,16 @@ class Member extends Authenticatable
         return $this->belongsToMany(Team::class, 'team_member')
                     ->withPivot('is_captain', 'created_at', 'updated_at');
     }
+
+    /**
+     * Return true is the role is the given one.
+     *
+     * @param \App\Enums\MemberRole $role
+     *
+     * @return bool
+     */
+    public function isRole(MemberRole $role): bool
+    {
+        return $this->role === $role;
+    }
 }
