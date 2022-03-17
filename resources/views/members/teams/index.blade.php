@@ -3,7 +3,7 @@
 
     <figure>
         <table>
-            <caption>List of my teams</caption>
+            <caption>{{ $teams->count() }} teams</caption>
             <thead>
                 <tr>
                     <th scope="col">Name</th>

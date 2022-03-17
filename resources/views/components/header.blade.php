@@ -12,7 +12,7 @@
                     <a href="{{ route('members.index') }}">Members</a>
                 </li>
                 <li>
-                    <a href="#">Moderators</a>
+                    <a href="{{ route('members.role', \App\Enums\MemberRole::MOD->value) }}">Moderators</a>
                 </li>
                 <li>
                     <form method="POST" action="{{ route('logout') }}" style="margin-bottom: 0">

@@ -1,9 +1,9 @@
 <x-layout>
-    <h1>Members</h1>
+    <h1>Members list</h1>
 
     <figure>
         <table>
-            <caption>Members list</caption>
+            <caption>{{ $members->count() }} members</caption>
             <thead>
                 <th scope="col">Member</th>
                 <th scope="col">Team(s)</th>
@@ -21,9 +21,9 @@
                             })->join(', ') !!}
                         </td>
                         <td>
-                            @can('moderate')
-                                <p>fdsfsdfsfs</p>
-                            @endcan
+                            @if($member->cannot('moderate') && Auth::user()->can('moderate'))
+                                <a href="#">Nominate moderator</a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

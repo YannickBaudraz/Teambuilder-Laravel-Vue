@@ -25,13 +25,21 @@ Route::controller(AuthController::class)->group(function () {
         Route::get('/login', 'create')->name('login-form');
         Route::post('/login', 'store')->name('login');
     });
+
     Route::post('/logout', 'destroy')->name('logout');
 });
 
-Route::resource('members', MemberController::class)->only(['index']);
-Route::resource('members.teams', MemberTeamController::class)->only(['index']);
-Route::resource('teams', TeamController::class)->only('show');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/members/{member}/teams', [MemberTeamController::class, 'index'])->name('members.teams.index');
+    Route::get('/members/{member}/teams', [MemberTeamController::class, 'index'])
+         ->name('members.teams.index');
+
+    Route::get('/members/{role}', [MemberController::class, 'role'])
+         ->name('members.role');
+
+    Route::resource('members', MemberController::class)->only(['index']);
+
+    Route::resource('members.teams', MemberTeamController::class)->only(['index']);
+
+    Route::resource('teams', TeamController::class)->only('show');
 });
