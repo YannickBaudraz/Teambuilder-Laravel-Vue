@@ -2,8 +2,8 @@
     <h1>My teams</h1>
 
     <figure>
-        <table>
-            <caption>{{ $teams->count() }} teams</caption>
+        <table aria-label="Teams list">
+            <summary>{{ $teams->count() }} teams</summary>
             <thead>
                 <tr>
                     <th scope="col">Name</th>
@@ -15,7 +15,7 @@
             <tbody>
                 @foreach($teams as $team)
                     <tr>
-                        <td>{{ $team->name }}</td>
+                        <td><a href="{{ route('teams.show', $team) }}">{{ $team->name }}</a></td>
                         <td>{{ $team->members->count() }}</td>
                         <td>{{ $team->captain->name }}</td>
                         <td>{{ $team->state->value }}</td>

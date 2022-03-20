@@ -22,17 +22,19 @@
                 <p>Ce membre ne fait partie d'aucune équipe</p>
             @endif
         </header>
-        <table>
-            <caption style="text-align: left">Member details</caption>
-            <tr>
-                <th scope="row">Role</th>
-                <td>{{ $member->role->value }}</td>
-            </tr>
-            <tr>
-                <th scope="row">Status</th>
-                <td>{{ $member->status->value }}</td>
-            </tr>
-        </table>
+        <figure>
+            <figcaption>Member details</figcaption>
+            <table>
+                <tr>
+                    <th scope="row">Role</th>
+                    <td>{{ $member->role->value }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Status</th>
+                    <td>{{ $member->status->value }}</td>
+                </tr>
+            </table>
+        </figure>
         <footer>
             <div class="flex flex-end">
                 <a href="#" role="button">Passer en mode édition</a>
