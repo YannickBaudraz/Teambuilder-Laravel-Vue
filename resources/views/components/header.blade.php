@@ -17,9 +17,7 @@
                 <li>
                     <form method="POST" action="{{ route('logout') }}" style="margin-bottom: 0">
                         @csrf
-                        <button class="outline" type="submit">
-                            {{ __('Log Out') }}
-                        </button>
+                        <button class="outline" type="submit">{{ __('Log Out') }}</button>
                     </form>
                 </li>
             @else

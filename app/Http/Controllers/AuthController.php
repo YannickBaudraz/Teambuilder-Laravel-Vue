@@ -30,7 +30,10 @@ class AuthController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        if (Auth::attempt($request->only('name', 'password'))) {
+        $credentials = $request->only('name', 'password');
+        $remember = $request->input('remember_me');
+
+        if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
 
             return redirect()->intended(RouteServiceProvider::HOME);
@@ -51,7 +54,6 @@ class AuthController extends Controller
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
         return redirect()->route('home');
