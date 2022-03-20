@@ -13,12 +13,10 @@
                 @foreach($members as $member)
                     <tr>
                         <td>
-                            <a href="#">{{ $member->name }}</a>
+                            <a href="{{ route('members.show', $member) }}">{{ $member->name }}</a>
                         </td>
                         <td>
-                            {!! $member->teams->map(function($team) {
-                                return \App\Helpers\ViewHelper::wrapInsideLinkTag($team->name, route('teams.show', $team));
-                            })->join(', ') !!}
+                            {!! $member->teams->map(fn($team) => ViewHelper::wrapInsideLinkTag($team->name, route('teams.show', $team)))->join(', ') !!}
                         </td>
                         <td>
                             @if($member->cannot('moderate') && Auth::user()->can('moderate'))

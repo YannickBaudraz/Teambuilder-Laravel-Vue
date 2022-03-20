@@ -6,6 +6,8 @@ use App\Enums\MemberRole;
 use App\Enums\MemberStatus;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -18,14 +20,14 @@ class Member extends Authenticatable
     use HasApiTokens;
 
     protected $casts = [
-        'role'   => MemberRole::class,
+        'role' => MemberRole::class,
         'status' => MemberStatus::class,
     ];
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are mass assignable
      *
-     * @var array<int, string>
+     * @var string[]
      */
     protected $fillable = [
         'name',
@@ -49,8 +51,35 @@ class Member extends Authenticatable
      */
     public function teams(): BelongsToMany
     {
-        return $this->belongsToMany(Team::class, 'team_member')
-                    ->withPivot('is_captain', 'created_at', 'updated_at');
+        return $this->belongsToMany(Team::class, 'team_member')->withPivot(
+            'is_captain',
+            'created_at',
+            'updated_at'
+        );
+    }
+
+    /**
+     * Get member's captained teams.
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    public function captainedTeams(): Attribute
+    {
+        return Attribute::make(
+            get: fn(): Collection => $this->teams()->where('is_captain', true)->get()
+        );
+    }
+
+    /**
+     * Get member's not captained teams.
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    public function notCaptainedTeams(): Attribute
+    {
+        return Attribute::make(
+            get: fn(): Collection => $this->teams()->where('is_captain', false)->get()
+        );
     }
 
     /**

@@ -1,4 +1,4 @@
-<header class="container">
+<header class="container" style="padding-top: 0; padding-bottom: 0">
     <nav>
         <ul>
             <li><a href="{{ route('home') }}"><strong>CPNV</strong></a></li>

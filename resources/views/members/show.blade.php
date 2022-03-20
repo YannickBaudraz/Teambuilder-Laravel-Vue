@@ -3,13 +3,27 @@
 
     <article>
         <header>
-            <hgroup>
-                <h2>{{ $member->name }}</h2>
-                <h3>Ce membre ne fait partie d'aucune équipe</h3>
-            </hgroup>
+            <h2>{{ $member->name }}</h2>
+            @if($member->teams->isNotEmpty())
+                @if ($member->captained_teams->isNotEmpty())
+                    <dl>
+                        <dt>Captain of</dt>
+                        {!! $member->captained_teams->map(fn($team) => ViewHelper::wrapInsideTag('dd', ViewHelper::wrapInsideLinkTag($team->name, route('teams.show', $team))))->join('') !!}
+                    </dl>
+                @endif
+
+                @if ($member->not_captained_teams->isNotEmpty())
+                    <dl>
+                        <dt>Member of</dt>
+                        {!! $member->not_captained_teams->map(fn($team) => ViewHelper::wrapInsideTag('dd', ViewHelper::wrapInsideLinkTag($team->name, route('teams.show', $team))))->join('') !!}
+                    </dl>
+                @endif
+            @else
+                <p>Ce membre ne fait partie d'aucune équipe</p>
+            @endif
         </header>
         <table>
-            <caption>Member details</caption>
+            <caption style="text-align: left">Member details</caption>
             <tr>
                 <th scope="row">Role</th>
                 <td>{{ $member->role->value }}</td>

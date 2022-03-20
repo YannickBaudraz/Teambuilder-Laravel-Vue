@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\TeamState;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -23,17 +24,22 @@ class Team extends Model
      */
     public function members(): BelongsToMany
     {
-        return $this->belongsToMany(Member::class, 'team_member')
-                    ->withPivot('is_captain', 'created_at', 'updated_at');
+        return $this->belongsToMany(Member::class, 'team_member')->withPivot(
+            'is_captain',
+            'created_at',
+            'updated_at'
+        );
     }
 
     /**
-     * Retrieve the captain of the team.
+     * Get the team's captain member.
      *
-     * @return \App\Models\Member
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
      */
-    public function getCaptainAttribute(): Member
+    public function captain(): Attribute
     {
-        return $this->members()->where('is_captain', true)->first();
+        return Attribute::get(
+            fn() => $this->members()->where('is_captain', true)->first()
+        );
     }
 }
