@@ -1,4 +1,4 @@
-<header>
+<header class="container">
     <nav>
         <ul>
             <li><a href="{{ route('home') }}"><strong>CPNV</strong></a></li>
@@ -12,12 +12,12 @@
                     <a href="{{ route('members.index') }}">Members</a>
                 </li>
                 <li>
-                    <a href="{{ route('members.role', \App\Enums\MemberRole::MOD->value) }}">Moderators</a>
+                    <a href="{{ route('members.index', ['role' => \App\Enums\MemberRole::MOD->value]) }}">Moderators</a>
                 </li>
                 <li>
                     <form method="POST" action="{{ route('logout') }}" style="margin-bottom: 0">
                         @csrf
-                        <button type="submit">
+                        <button class="outline" type="submit">
                             {{ __('Log Out') }}
                         </button>
                     </form>
@@ -32,6 +32,6 @@
         <h2>Application pour les joutes du CPNV</h2>
     </hgroup>
     @auth
-        <p>Connecté en tant que : <a href="#">{{ Auth::user()->name }}</a></p>
+        <p>Connecté en tant que : <a href="{{ route('members.show', Auth::user()) }}">{{ Auth::user()->name }}</a></p>
     @endauth
 </header>

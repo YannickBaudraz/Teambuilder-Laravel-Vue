@@ -18,7 +18,7 @@
 
     <x-header/>
 
-    <main>
+    <main class="container">
         {{ $slot }}
     </main>
 
