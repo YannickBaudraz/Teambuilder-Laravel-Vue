@@ -26,18 +26,18 @@
             <figcaption>Member details</figcaption>
             <table>
                 <tr>
-                    <th scope="row">Role</th>
+                    <th scope="row" style="font-weight: 500">Role</th>
                     <td>{{ $member->role->value }}</td>
                 </tr>
                 <tr>
-                    <th scope="row">Status</th>
+                    <th scope="row" style="font-weight: 500">Status</th>
                     <td>{{ $member->status->value }}</td>
                 </tr>
             </table>
         </figure>
         <footer>
             <div class="flex flex-end">
-                <a href="#" role="button">Passer en mode édition</a>
+                <a href="{{ route('members.edit', $member) }}" role="button">Passer en mode édition</a>
             </div>
         </footer>
     </article>

@@ -31,7 +31,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/members/{member}/teams', [MemberTeamController::class, 'index'])
          ->name('members.teams.index');
 
-    Route::resource('members', MemberController::class)->only(['index', 'show']);
+    Route::resource('members', MemberController::class)->only(['index', 'show', 'edit', 'update']);
 
     Route::resource('members.teams', MemberTeamController::class)->only(['index']);
 
