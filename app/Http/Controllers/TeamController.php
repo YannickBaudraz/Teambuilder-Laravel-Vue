@@ -3,18 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Team;
+use Illuminate\Contracts\View\View;
 
 class TeamController extends Controller
 {
+
     /**
      * Display the specified resource.
      *
      * @param \App\Models\Team $team
      *
-     * @return never
+     * @return \Illuminate\Contracts\View\View
      */
-    public function show(Team $team): never
+    public function show(Team $team): View
     {
-        abort(500);
+        return view('teams.show', compact('team'));
     }
 }
