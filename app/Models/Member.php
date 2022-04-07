@@ -32,6 +32,8 @@ class Member extends Authenticatable
     protected $fillable = [
         'name',
         'password',
+        'status',
+        'role',
     ];
 
     /**
