@@ -33,13 +33,13 @@ class AuthController extends Controller
         $credentials = $request->only('name', 'password');
         $remember = $request->input('remember_me');
 
-        if (Auth::attempt($credentials, $remember)) {
-            $request->session()->regenerate();
-
-            return redirect()->intended(RouteServiceProvider::HOME);
+        if (!Auth::attempt($credentials, $remember)) {
+            return back()->withErrors(['login' => __('auth.failed')]);
         }
 
-        return back()->withErrors(['name' => __('auth.failed')]);
+        $request->session()->regenerate();
+
+        return redirect()->intended(RouteServiceProvider::HOME);
     }
 
     /**

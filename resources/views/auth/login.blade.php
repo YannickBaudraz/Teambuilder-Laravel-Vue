@@ -6,7 +6,7 @@
                 @csrf
 
                 @error('login')
-                <p style="color:red">{{ $error }}</p>
+                <p style="color:red">{{ $message }}</p>
                 @enderror
 
                 <input type="text"
