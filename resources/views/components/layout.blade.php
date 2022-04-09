@@ -13,14 +13,14 @@
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
     <script defer src="{{ mix('js/app.js') }}"></script>
+
+    @inertiaHead
 </head>
 <body>
 
-    <x-header/>
+<x-header/>
 
-    <main class="container">
-        {{ $slot }}
-    </main>
+@inertia
 
 </body>
 </html>
