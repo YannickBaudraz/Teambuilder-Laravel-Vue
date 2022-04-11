@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TeamController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\MemberTeamController;
+use App\Http\Controllers\TeamController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,18 +18,18 @@ use App\Http\Controllers\MemberTeamController;
 */
 
 Route::redirect('/', '/home');
-Route::get('/home', static fn() => view('home'))->name('home');
+Route::get('/home', static fn() => inertia('Home'))->name('home');
 
 Route::middleware('guest')->group(function () {
     Route::controller(AuthController::class)->group(function () {
-        Route::get('login', 'create')->name('login-form');
-        Route::post('login', 'store')->name('login');
+        Route::get('login', 'create')->name('auth.create');
+        Route::post('login', 'store')->name('auth.store');
     });
 });
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/members/{member}/teams', [MemberTeamController::class, 'index'])
-         ->name('members.teams.index');
+        ->name('members.teams.index');
 
     Route::resource('members', MemberController::class)->only(['index', 'show', 'edit', 'update']);
 
@@ -37,5 +37,5 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('teams', TeamController::class)->only('show');
 
-    Route::post('/logout', [AuthController::class, 'destroy'])->name('logout');
+    Route::post('/logout', [AuthController::class, 'destroy'])->name('auth.destroy');
 });

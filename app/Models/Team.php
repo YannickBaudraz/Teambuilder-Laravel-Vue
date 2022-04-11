@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use App\Enums\TeamState;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Team extends Model
@@ -17,10 +17,14 @@ class Team extends Model
         'state' => TeamState::class,
     ];
 
+    protected $appends = [
+        'captain'
+    ];
+
     /**
      * Retrieve all members associated to the team.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
     public function members(): BelongsToMany
     {
@@ -34,7 +38,7 @@ class Team extends Model
     /**
      * Get the team's captain member.
      *
-     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     * @return Attribute
      */
     public function captain(): Attribute
     {

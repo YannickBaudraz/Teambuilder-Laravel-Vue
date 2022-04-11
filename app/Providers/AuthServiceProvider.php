@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\Models\Member;
 use App\Enums\MemberRole;
-use Illuminate\Support\Facades\Gate;
+use App\Models\Member;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -28,6 +28,6 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('moderate', fn(Member $member) => $member->isRole(MemberRole::MOD));
+        Gate::define('moderate', static fn(Member $member) => $member->isRole(MemberRole::MOD));
     }
 }

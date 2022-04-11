@@ -1,0 +1,12 @@
+nav {
+  li {
+    button, [role="button"] {
+      margin-top: calc(var(--nav-link-spacing-vertical) * -1);
+      margin-bottom: calc(var(--nav-link-spacing-vertical) * -1);
+
+      &:is([aria-current], :hover, :active, :focus) {
+        text-decoration: none;
+      }
+    }
+  }
+}

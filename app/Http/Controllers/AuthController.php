@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\RedirectResponse;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Response;
+use Inertia\ResponseFactory;
 
 class AuthController extends Controller
 {
@@ -14,19 +15,19 @@ class AuthController extends Controller
     /**
      * Display the login view.
      *
-     * @return \Illuminate\Contracts\View\View
+     * @return Response|ResponseFactory
      */
-    public function create(): View
+    public function create(): Response|ResponseFactory
     {
-        return view('auth.login');
+        return inertia('Auth/Login');
     }
 
     /**
      * Handle an incoming authentication request.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function store(Request $request): RedirectResponse
     {
@@ -45,9 +46,9 @@ class AuthController extends Controller
     /**
      * Destroy an authenticated session.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function destroy(Request $request): RedirectResponse
     {

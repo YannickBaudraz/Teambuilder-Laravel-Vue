@@ -1,2 +1,11 @@
+// Pico
 @import '@picocss/pico/scss/pico';
-@import 'layout';
+
+// layout
+@import 'layout/flex';
+
+// Core
+@import 'core/table';
+
+// Components
+@import 'components/nav';

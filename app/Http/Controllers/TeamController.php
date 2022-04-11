@@ -3,20 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Team;
-use Illuminate\Contracts\View\View;
+use Inertia\Response;
+use Inertia\ResponseFactory;
 
 class TeamController extends Controller
 {
 
     /**
-     * Display the specified resource.
+     * Display the specified team.
      *
-     * @param \App\Models\Team $team
+     * @param Team $team
      *
-     * @return \Illuminate\Contracts\View\View
+     * @return Response|ResponseFactory
      */
-    public function show(Team $team): View
+    public function show(Team $team): Response|ResponseFactory
     {
-        return view('teams.show', compact('team'));
+        $team->load('members');
+
+        return inertia('Teams/Show', compact('team'));
     }
 }

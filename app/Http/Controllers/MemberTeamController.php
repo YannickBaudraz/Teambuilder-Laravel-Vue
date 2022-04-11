@@ -3,23 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Member;
-use Illuminate\Contracts\View\View;
+use Inertia\Response;
+use Inertia\ResponseFactory;
 
 class MemberTeamController extends Controller
 {
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the member's team.
      *
-     * @param \App\Models\Member $member
+     * @param Member $member
      *
-     * @return \Illuminate\Contracts\View\View
+     * @return Response|ResponseFactory
      */
-    public function index(Member $member): View
+    public function index(Member $member): Response|ResponseFactory
     {
-        $teams = $member->teams;
-        return view('members.teams.index', [
-            'teams' => $teams,
-        ]);
+        $teams = $member->teams->load('members');
+
+        return inertia('Members/Teams/Index', compact('teams'));
     }
 }

@@ -2,63 +2,70 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Member;
 use App\Enums\MemberRole;
-use Illuminate\Http\Request;
-use Illuminate\Contracts\View\View;
+use App\Http\Resources\Members\MemberResource;
+use App\Models\Member;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Inertia\Response;
+use Inertia\ResponseFactory;
 
 class MemberController extends Controller
 {
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of members.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\View
+     * @return Response|ResponseFactory
      */
-    public function index(Request $request): View
+    public function index(Request $request): Response|ResponseFactory
     {
         $role = $request->query('role');
         $members = $role
             ? Member::whereRole(MemberRole::tryFrom(strtoupper($role)))->get()
             : Member::all();
+        $members->load('teams');
 
-        return view('members.index', compact('members'));
+        return inertia('Members/Index', [
+            'members' => MemberResource::collection($members),
+        ]);
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified member.
      *
-     * @param \App\Models\Member $member
+     * @param Member $member
      *
-     * @return \Illuminate\Contracts\View\View
+     * @return Response|ResponseFactory
      */
-    public function show(Member $member): View
+    public function show(Member $member): Response|ResponseFactory
     {
-        return view('members.show', compact('member'));
+        $member->load('teams')->setAppends(['captained_teams', 'not_captained_teams']);
+
+        return inertia('Members/Show', compact('member'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified member.
      *
-     * @param \App\Models\Member $member
+     * @param Member $member
      *
-     * @return \Illuminate\Contracts\View\View
+     * @return Response|ResponseFactory
      */
-    public function edit(Member $member): View
+    public function edit(Member $member): Response|ResponseFactory
     {
-        return view('members.edit', compact('member'));
+        return inertia('Members/Edit', compact('member'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified member in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Member       $member
+     * @param Request $request
+     * @param Member $member
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update(Request $request, Member $member): RedirectResponse
     {
