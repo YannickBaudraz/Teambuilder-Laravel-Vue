@@ -11,7 +11,10 @@ createInertiaApp({
       .use(plugin)
       .mixin({
         methods: {
-          $route: (name, params, absolute) => route(name, params, absolute, Ziggy)
+          $route: (name, params, absolute) => route(name, params, absolute, {
+            ...Ziggy,
+            url: `${window.location.protocol}//${window.location.host}`,
+          })
         },
       })
       .mount(el)
