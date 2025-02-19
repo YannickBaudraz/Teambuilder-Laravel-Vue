@@ -31,6 +31,11 @@ const Ziggy = {
       'parameters': ['member'],
       'bindings': { 'member': 'id' }
     },
+    'members.nominate': {
+      'uri': 'members\/{member}\/nominate\/{role}',
+      'methods': ['POST'],
+      'parameters': ['member', 'role']
+    },
     'teams.show': {
       'uri': 'teams\/{team}',
       'methods': ['GET', 'HEAD'],

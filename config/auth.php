@@ -1,6 +1,10 @@
 <?php
 
+$authModel = App\Models\Member::class;
+
 return [
+
+    'model' => $authModel,
 
     /*
     |--------------------------------------------------------------------------
@@ -62,7 +66,7 @@ return [
     'providers' => [
         'members' => [
             'driver' => 'eloquent',
-            'model'  => App\Models\Member::class,
+            'model'  => $authModel,
         ],
     ],
 ];

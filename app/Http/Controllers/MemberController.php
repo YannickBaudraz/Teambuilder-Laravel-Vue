@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\MemberRole;
 use App\Http\Resources\Members\MemberResource;
 use App\Models\Member;
+use Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Response;
@@ -16,7 +17,7 @@ class MemberController extends Controller
     /**
      * Display a listing of members.
      *
-     * @param Request $request
+     * @param  Request  $request
      *
      * @return Response|ResponseFactory
      */
@@ -36,13 +37,15 @@ class MemberController extends Controller
     /**
      * Display the specified member.
      *
-     * @param Member $member
+     * @param  Member  $member
      *
      * @return Response|ResponseFactory
      */
     public function show(Member $member): Response|ResponseFactory
     {
-        $member->load('teams')->setAppends(['captained_teams', 'not_captained_teams']);
+        $member->load('teams')->setAppends(
+            ['captained_teams', 'not_captained_teams']
+        );
 
         return inertia('Members/Show', compact('member'));
     }
@@ -50,7 +53,7 @@ class MemberController extends Controller
     /**
      * Show the form for editing the specified member.
      *
-     * @param Member $member
+     * @param  Member  $member
      *
      * @return Response|ResponseFactory
      */
@@ -62,8 +65,8 @@ class MemberController extends Controller
     /**
      * Update the specified member in storage.
      *
-     * @param Request $request
-     * @param Member $member
+     * @param  Request  $request
+     * @param  Member  $member
      *
      * @return RedirectResponse
      */
@@ -71,6 +74,28 @@ class MemberController extends Controller
     {
         $member->update($request->all());
 
-        return redirect(route('members.show', compact('member')));
+        return to_route('members.show', compact('member'));
     }
+
+    /**
+     * Nominate a member for a role.
+     *
+     * @param  Member  $member
+     * @param  MemberRole  $role
+     *
+     * @return RedirectResponse
+     */
+    public function nominate(
+        Member $member,
+        MemberRole $role
+    ): RedirectResponse {
+        if (!Auth::user()?->isRole(MemberRole::MOD)) {
+            abort(403);
+        }
+
+        $member->update(['role' => $role]);
+
+        return to_route('members.show', compact('member'));
+    }
+
 }

@@ -28,14 +28,23 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/members/{member}/teams', [MemberTeamController::class, 'index'])
+    Route::get('/members/{member}/teams',
+        [MemberTeamController::class, 'index'])
         ->name('members.teams.index');
 
-    Route::resource('members', MemberController::class)->only(['index', 'show', 'edit', 'update']);
+    Route::resource('members', MemberController::class)
+        ->only(['index', 'show', 'edit', 'update']);
 
-    Route::resource('members.teams', MemberTeamController::class)->only(['index']);
+    Route::post('members/{member}/nominate/{role}',
+        [MemberController::class, 'nominate']
+    )->name('members.nominate');
 
-    Route::resource('teams', TeamController::class)->only('show');
+    Route::resource('members.teams', MemberTeamController::class)
+        ->only(['index']);
 
-    Route::post('/logout', [AuthController::class, 'destroy'])->name('auth.destroy');
+    Route::resource('teams', TeamController::class)
+        ->only('show');
+
+    Route::post('/logout', [AuthController::class, 'destroy'])
+        ->name('auth.destroy');
 });
