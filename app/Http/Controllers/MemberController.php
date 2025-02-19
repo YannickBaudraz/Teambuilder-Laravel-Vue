@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Enums\MemberRole;
 use App\Http\Resources\Members\MemberResource;
 use App\Models\Member;
-use Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Response;
@@ -89,10 +88,6 @@ class MemberController extends Controller
         Member $member,
         MemberRole $role
     ): RedirectResponse {
-        if (!Auth::user()?->isRole(MemberRole::MOD)) {
-            abort(403);
-        }
-
         $member->update(['role' => $role]);
 
         return to_route('members.show', compact('member'));

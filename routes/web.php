@@ -28,16 +28,18 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
+    Route::middleware('can:moderate')->group(function () {
+        Route::post('members/{member}/nominate/{role}',
+            [MemberController::class, 'nominate'])
+            ->name('members.nominate');
+    });
+
     Route::get('/members/{member}/teams',
         [MemberTeamController::class, 'index'])
         ->name('members.teams.index');
 
     Route::resource('members', MemberController::class)
         ->only(['index', 'show', 'edit', 'update']);
-
-    Route::post('members/{member}/nominate/{role}',
-        [MemberController::class, 'nominate']
-    )->name('members.nominate');
 
     Route::resource('members.teams', MemberTeamController::class)
         ->only(['index']);
