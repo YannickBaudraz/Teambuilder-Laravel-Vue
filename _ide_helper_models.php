@@ -1,6 +1,7 @@
 <?php
 
 // @formatter:off
+// phpcs:ignoreFile
 /**
  * A helper file for your Eloquent Models
  * Copy the phpDocs from this file to the correct Model,
@@ -24,13 +25,13 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection $captained_teams
  * @property-read \Illuminate\Database\Eloquent\Collection $not_captained_teams
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Team[] $teams
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Team> $teams
  * @property-read int|null $teams_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Sanctum\PersonalAccessToken[] $tokens
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
- * @method static \Database\Factories\MemberFactory factory(...$parameters)
+ * @method static \Database\Factories\MemberFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Member newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Member newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Member query()
@@ -66,9 +67,10 @@ namespace App\Models{
  * @property \App\Enums\TeamState $state
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Member[] $members
+ * @property-read mixed $captain
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Member> $members
  * @property-read int|null $members_count
- * @method static \Database\Factories\TeamFactory factory(...$parameters)
+ * @method static \Database\Factories\TeamFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Team newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Team newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Team query()
